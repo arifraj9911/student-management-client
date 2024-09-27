@@ -1,10 +1,10 @@
 const Navbar = () => {
   return (
-    <div className="flex justify-between item">
-      <p className="font-bold text-xl text-[#F33823]">Dev Cluster</p>
-      <p className="border py-3 px-8 rounded-md font-semibold">
+    <div className="flex justify-between item-center ">
+      <span className="font-bold text-xl text-[#F33823]">Dev Cluster</span>
+      <span className=" py-2 px-4 border rounded-md font-semibold">
         arif.raj9911@gmail.com
-      </p>
+      </span>
     </div>
   );
 };

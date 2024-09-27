@@ -3,27 +3,48 @@ import { NavLink } from "react-router-dom";
 const Sidebar = () => {
   return (
     <div>
-      <ul className=" ">
-        <li className="">
+      <ul className="mt-[60px]">
+        <li>
           <NavLink
-            className="text-gray-500 text-lg hover:text-red-400 hover:no-underline"
             to="/add-student"
+            className={({ isActive }) =>
+              isActive
+                ? "block w-full bg-red-400 text-white text-lg px-4 py-2 no-underline rounded-md"
+                : "block w-full text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline"
+            }
+            style={({ isActive }) =>
+              isActive ? { color: "white", textDecoration: "none" } : {}
+            }
           >
             Add Student
           </NavLink>
         </li>
         <li>
           <NavLink
-            className="text-gray-500 text-lg hover:text-red-400 hover:no-underline"
             to="/manage-student"
+            className={({ isActive }) =>
+              isActive
+                ? "block w-full rounded-md bg-red-400 text-white text-lg px-4 py-2 no-underline"
+                : "block w-full text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline"
+            }
+            style={({ isActive }) =>
+              isActive ? { color: "white", textDecoration: "none" } : {}
+            }
           >
             Manage Student
           </NavLink>
         </li>
         <li>
           <NavLink
-            className="text-gray-500 text-lg hover:text-red-400 hover:no-underline"
             to="/logout"
+            className={({ isActive }) =>
+              isActive
+                ? "block w-full rounded-md bg-red-400 text-white text-lg px-4 py-2 no-underline"
+                : "block w-full text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline"
+            }
+            style={({ isActive }) =>
+              isActive ? { color: "white", textDecoration: "none" } : {}
+            }
           >
             Logout
           </NavLink>
