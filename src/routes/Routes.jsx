@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
 import Home from "../components/Home/Home";
 import AddStudent from "../components/AddStudent/AddStudent";
+import ManageStudent from "../components/ManageStudent/ManageStudent";
 
 export const router = createBrowserRouter([
   {
@@ -10,15 +11,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>,
+        element: <Home />,
       },
       {
         path: "/add-student",
-        element: <AddStudent/>,
+        element: <AddStudent />,
       },
       {
         path: "/manage-student",
-        element: <div>manage</div>,
+        element: <ManageStudent />,
       },
       {
         path: "*",
