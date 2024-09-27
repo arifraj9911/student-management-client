@@ -1,6 +1,18 @@
 import StudentTable from "./StudentTable";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageStudent = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ["userData"],
+    queryFn: () =>
+      fetch("http://localhost:5000/getAll").then((res) => res.json()),
+  });
+
+  if (isPending) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
+
+  // console.log(data);
   return (
     <div>
       <div className="flex justify-between items-center gap-6 mb-6">
@@ -26,7 +38,7 @@ const ManageStudent = () => {
         <p>26 January 2025, 11.00 PM</p>
       </div>
       {/* table */}
-      <StudentTable />
+      <StudentTable data={data} />
     </div>
   );
 };

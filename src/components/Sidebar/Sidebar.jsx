@@ -49,6 +49,21 @@ const Sidebar = () => {
             Logout
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/test"
+            className={({ isActive }) =>
+              isActive
+                ? "block w-full rounded-md bg-red-400 text-white text-lg px-4 py-2 no-underline"
+                : "block w-full text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline"
+            }
+            style={({ isActive }) =>
+              isActive ? { color: "white", textDecoration: "none" } : {}
+            }
+          >
+            Test
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

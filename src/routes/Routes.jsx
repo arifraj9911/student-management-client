@@ -3,6 +3,7 @@ import Main from "../layout/Main";
 import Home from "../components/Home/Home";
 import AddStudent from "../components/AddStudent/AddStudent";
 import ManageStudent from "../components/ManageStudent/ManageStudent";
+import Test from "../components/test/text";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/manage-student",
         element: <ManageStudent />,
+      },
+      {
+        path: "/test",
+        element: <Test />,
       },
       {
         path: "*",

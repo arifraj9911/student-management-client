@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Table, Button } from "rsuite";
-import users from "../../data/user";
 
 const { Column, HeaderCell, Cell } = Table;
-const data = users;
+// const data = users;
 
-const StudentTable = () => {
+const StudentTable = ({ data }) => {
   return (
     <div>
       <Table
@@ -20,33 +20,33 @@ const StudentTable = () => {
         </Column>
 
         <Column width={150}>
-          <HeaderCell>First Name</HeaderCell>
-          <Cell dataKey="firstName" />
+          <HeaderCell> Name</HeaderCell>
+          <Cell dataKey="name" />
         </Column>
 
         <Column width={150}>
-          <HeaderCell>Last Name</HeaderCell>
-          <Cell dataKey="lastName" />
+          <HeaderCell>Email</HeaderCell>
+          <Cell dataKey="email" />
         </Column>
 
         <Column width={100}>
-          <HeaderCell>Gender</HeaderCell>
-          <Cell dataKey="gender" />
+          <HeaderCell>Designation</HeaderCell>
+          <Cell dataKey="designation" />
         </Column>
 
         <Column width={100}>
-          <HeaderCell>Age</HeaderCell>
-          <Cell dataKey="age" />
+          <HeaderCell>empId</HeaderCell>
+          <Cell dataKey="empId" />
         </Column>
 
         <Column width={150}>
-          <HeaderCell>Postcode</HeaderCell>
-          <Cell dataKey="postcode" />
+          <HeaderCell>CreatedAt</HeaderCell>
+          <Cell dataKey="createdAt" />
         </Column>
 
         <Column width={300}>
-          <HeaderCell>Email</HeaderCell>
-          <Cell dataKey="email" />
+          <HeaderCell>UpdatedAt</HeaderCell>
+          <Cell dataKey="updatedAt" />
         </Column>
         <Column width={80} fixed="right">
           <HeaderCell>...</HeaderCell>
