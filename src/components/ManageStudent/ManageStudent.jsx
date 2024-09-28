@@ -1,12 +1,59 @@
+import Swal from "sweetalert2";
 import StudentTable from "./StudentTable";
 import { useQuery } from "@tanstack/react-query";
 
 const ManageStudent = () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["userData"],
+  const { isPending, error, data, refetch } = useQuery({
+    queryKey: ["studentData"],
     queryFn: () =>
-      fetch("http://localhost:5000/getAll").then((res) => res.json()),
+      fetch("http://localhost:5000/getAllStudent").then((res) => res.json()),
   });
+
+  const handleUpdateStudent = (data,roll)=>{
+    fetch(`http://localhost:5000/updateStudent/${roll}`, {
+      method: "PUT",
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify(data)
+    })
+      .then((res) => res.json())
+      .then(() => {
+        Swal.fire({
+          title: "Updated!",
+          text: "Your file has been updated.",
+          icon: "success",
+        });
+        refetch();
+      });
+  }
+
+  const handleDeleteStudent = (roll) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/deleteStudent/${roll}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          });
+      }
+    });
+  };
 
   if (isPending) return "Loading...";
 
@@ -38,7 +85,7 @@ const ManageStudent = () => {
         <p>26 January 2025, 11.00 PM</p>
       </div>
       {/* table */}
-      <StudentTable data={data} />
+      <StudentTable data={data} handleDeleteStudent={handleDeleteStudent} handleUpdateStudent={handleUpdateStudent}/>
     </div>
   );
 };

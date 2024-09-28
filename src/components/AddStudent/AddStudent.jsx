@@ -1,17 +1,27 @@
 import { useState } from "react";
 import { Form, ButtonToolbar, Button } from "rsuite";
 import { SelectPicker, Stack } from "rsuite";
+import Swal from "sweetalert2";
 
-const data = [
-  "Eugenia",
-  "Bryan",
-  "Linda",
-  "Nancy",
-  "Lloyd",
-  "Alice",
-  "Julia",
-  "Albert",
+const classData = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
 ].map((item) => ({ label: item, value: item }));
+
+const divisionData = ["A", "B", "C", "D", "E"].map((item) => ({
+  label: item,
+  value: item,
+}));
 
 const AddStudent = () => {
   // Form state
@@ -39,6 +49,37 @@ const AddStudent = () => {
 
   const handleSubmit = () => {
     console.log("Form Data:", formData);
+
+    fetch("http://localhost:5000/addStudent", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "successfully added student",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setFormData({
+          fname: "",
+          mname: "",
+          lname: "",
+          class: "",
+          division: "",
+          roll: "",
+          address1: "",
+          address2: "",
+          landmark: "",
+          city: "",
+          pincode: "",
+        });
+      });
   };
 
   return (
@@ -76,6 +117,7 @@ const AddStudent = () => {
         </div>
 
         <div className="mb-5 flex gap-6">
+          {/* class */}
           <Stack
             spacing={10}
             direction="column"
@@ -83,7 +125,7 @@ const AddStudent = () => {
             alignItems="flex-start"
           >
             <SelectPicker
-              data={data}
+              data={classData}
               searchable={false}
               style={{ width: 350 }}
               placeholder="Select Class"
@@ -91,9 +133,11 @@ const AddStudent = () => {
               onChange={(value) => handleChange(value, "class")}
             />
           </Stack>
+
+          {/* division */}
           <Stack spacing={10} className="w-full">
             <SelectPicker
-              data={data}
+              data={divisionData}
               searchable={false}
               style={{ width: 350 }}
               placeholder="Select Division"
