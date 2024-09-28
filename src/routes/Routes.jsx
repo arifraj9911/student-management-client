@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Main from "../layout/Main";
 import AddStudent from "../components/AddStudent/AddStudent";
 import ManageStudent from "../components/ManageStudent/ManageStudent";
-import Test from "../components/test/text";
 import Login from "../components/Authentication/Login/Login";
 import Register from "../components/Authentication/Register/Register";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -32,14 +31,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/test",
-        element: (
-          <PrivateRoute>
-            <Test />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "*",
         element: <div>404 error</div>,
