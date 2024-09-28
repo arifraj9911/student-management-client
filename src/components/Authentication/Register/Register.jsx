@@ -89,7 +89,7 @@ const Register = () => {
       </form>
       <p className="my-4 "> Or</p>
       <div>
-        <button onClick={() => handleGoogleSubmit} className=" py-2 px-4 ">
+        <button onClick={handleGoogleSubmit} className=" py-2 px-4 ">
           <FcGoogle className="text-5xl" />
         </button>
       </div>
