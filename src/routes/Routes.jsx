@@ -1,9 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Main from "../layout/Main";
-import Home from "../components/Home/Home";
 import AddStudent from "../components/AddStudent/AddStudent";
 import ManageStudent from "../components/ManageStudent/ManageStudent";
 import Test from "../components/test/text";
+import Login from "../components/Authentication/Login/Login";
+import Register from "../components/Authentication/Register/Register";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -12,19 +14,31 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Navigate to="/manage-student" replace />,
       },
       {
         path: "/add-student",
-        element: <AddStudent />,
+        element: (
+          <PrivateRoute>
+            <AddStudent />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/manage-student",
-        element: <ManageStudent />,
+        element: (
+          <PrivateRoute>
+            <ManageStudent />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/test",
-        element: <Test />,
+        element: (
+          <PrivateRoute>
+            <Test />
+          </PrivateRoute>
+        ),
       },
       {
         path: "*",
@@ -34,7 +48,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <div>login</div>,
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     path: "*",

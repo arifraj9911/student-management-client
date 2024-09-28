@@ -1,6 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Sidebar = () => {
+  const { logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut(); // Perform logout
+    navigate("/login"); // Navigate to login page after logout
+  };
   return (
     <div>
       <ul className="mt-[60px]">
@@ -35,19 +44,12 @@ const Sidebar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/logout"
-            className={({ isActive }) =>
-              isActive
-                ? "block w-full rounded-md bg-red-400 text-white text-lg px-4 py-2 no-underline"
-                : "block w-full text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline"
-            }
-            style={({ isActive }) =>
-              isActive ? { color: "white", textDecoration: "none" } : {}
-            }
+          <button
+            onClick={handleLogout}
+            className="block w-full text-start text-gray-500 text-lg px-4 py-2 hover:text-black hover:bg-gray-50 no-underline rounded-md"
           >
             Logout
-          </NavLink>
+          </button>
         </li>
         <li>
           <NavLink
