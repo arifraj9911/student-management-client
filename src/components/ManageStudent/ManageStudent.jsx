@@ -1,21 +1,31 @@
 import Swal from "sweetalert2";
 import StudentTable from "./StudentTable";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const ManageStudent = () => {
+  const [searchValue, setSearchValue] = useState("");
+
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["studentData"],
     queryFn: () =>
-      fetch("http://localhost:5000/getAllStudent").then((res) => res.json()),
+      fetch(`http://localhost:5000/getAllStudent`).then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      }),
   });
 
-  const handleUpdateStudent = (data,roll)=>{
+  console.log(searchValue);
+
+  const handleUpdateStudent = (data, roll) => {
     fetch(`http://localhost:5000/updateStudent/${roll}`, {
       method: "PUT",
-      headers:{
-        'content-type':'application/json'
+      headers: {
+        "content-type": "application/json",
       },
-      body:JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then(() => {
@@ -26,7 +36,7 @@ const ManageStudent = () => {
         });
         refetch();
       });
-  }
+  };
 
   const handleDeleteStudent = (roll) => {
     Swal.fire({
@@ -59,6 +69,13 @@ const ManageStudent = () => {
 
   if (error) return "An error has occurred: " + error.message;
 
+  // Filtered data based on searchValue
+  const filteredData = data?.filter(
+    (student) =>
+      student?.fname.toLowerCase().includes(searchValue.toLowerCase()) ||
+      student?.roll.toString().includes(searchValue)
+  );
+
   // console.log(data);
   return (
     <div>
@@ -68,7 +85,9 @@ const ManageStudent = () => {
           <input
             type="text"
             className="py-2 px-4 border w-60 bg-[#f1f2f3] text-black outline-none rounded-md"
-            placeholder="Search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Search by name or roll"
           />
         </div>
         <div className="flex items-center gap-6">
@@ -85,7 +104,11 @@ const ManageStudent = () => {
         <p>26 January 2025, 11.00 PM</p>
       </div>
       {/* table */}
-      <StudentTable data={data} handleDeleteStudent={handleDeleteStudent} handleUpdateStudent={handleUpdateStudent}/>
+      <StudentTable
+        data={filteredData || []}
+        handleDeleteStudent={handleDeleteStudent}
+        handleUpdateStudent={handleUpdateStudent}
+      />
     </div>
   );
 };
