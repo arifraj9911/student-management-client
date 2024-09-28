@@ -50,7 +50,7 @@ const AddStudent = () => {
   const handleSubmit = () => {
     console.log("Form Data:", formData);
 
-    fetch("http://localhost:5000/addStudent", {
+    fetch("http://localhost:5000/api/addStudent", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

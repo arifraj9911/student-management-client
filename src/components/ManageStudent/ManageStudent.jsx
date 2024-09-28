@@ -9,7 +9,7 @@ const ManageStudent = () => {
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["studentData"],
     queryFn: () =>
-      fetch(`http://localhost:5000/getAllStudent`).then((res) => {
+      fetch(`http://localhost:5000/api/getAllStudent`).then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
@@ -20,7 +20,7 @@ const ManageStudent = () => {
   console.log(searchValue);
 
   const handleUpdateStudent = (data, roll) => {
-    fetch(`http://localhost:5000/updateStudent/${roll}`, {
+    fetch(`http://localhost:5000/api/updateStudent/${roll}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -49,7 +49,7 @@ const ManageStudent = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/deleteStudent/${roll}`, {
+        fetch(`http://localhost:5000/api/deleteStudent/${roll}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
